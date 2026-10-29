@@ -4,101 +4,151 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="google-site-verification" content="240c97758f140190" />
-<title>CreateHub AI Soko</title>
+<title>Createhub AI - The Ultimate AI Creation Platform</title>
+<meta name="description" content="Create images, videos, content, logos, music with AI. All tools in one place.">
+<link rel="icon" href="data:,">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui;background:#f0f2f5}
-.header{background:white;padding:10px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.logo{font-weight:800;color:#0064d1;font-size:20px}.sell-btn{background:#0064d1;color:white;border:none;padding:8px 16px;border-radius:20px;font-weight:700}
-.grid{padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.card{background:white;border-radius:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.1)}
-.card img{width:100%;height:140px;object-fit:cover}
-.card-info{padding:8px}.price{font-weight:800}.title{font-size:13px;color:#333}.loc{font-size:11px;color:#888;margin-top:4px}
-.badge{font-size:10px;padding:2px 6px;border-radius:4px}.pending{background:#fff3cd;color:#856404}.approved{background:#d4edda;color:#155724}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:200;overflow:auto}
-.modal.active{display:flex;align-items:center;justify-content:center;padding:20px}
-.box{background:white;width:100%;max-width:400px;border-radius:10px;padding:20px}
-input,select,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:6px}
-.btn{width:100%;padding:12px;border:none;border-radius:6px;font-weight:700;margin-top:8px}
-.btn-blue{background:#0064d1;color:white}.btn-green{background:#28a745;color:white}
-.pay-box{border:1px dashed #0064d1;padding:10px;border-radius:8px;margin:10px 0;background:#f8f9ff}
-.admin-panel{display:none;position:fixed;inset:0;background:white;z-index:300;overflow:auto;padding:15px}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #ffffff; color: #111; line-height: 1.6; }
+nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: #fff; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; }
+.logo { font-size: 24px; font-weight: 800; color: #000; }
+.logo span { color: #7c3aed; }
+.nav-links a { margin-left: 25px; text-decoration: none; color: #333; font-weight: 500; }
+.nav-btn { background: #000; color: #fff !important; padding: 10px 20px; border-radius: 25px; }
+.hero { padding: 100px 5% 80px; text-align: center; background: radial-gradient(circle at top, #f3e8ff 0%, #ffffff 70%); }
+.hero h1 { font-size: 62px; font-weight: 800; line-height: 1.1; max-width: 900px; margin: 0 auto 20px; }
+.hero h1 span { background: linear-gradient(90deg, #7c3aed, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { font-size: 20px; color: #666; max-width: 700px; margin: 0 auto 40px; }
+.hero-buttons a { display: inline-block; padding: 16px 32px; border-radius: 30px; text-decoration: none; font-weight: 600; margin: 0 10px; }
+.btn-primary { background: #000; color: #fff; }
+.btn-secondary { background: #fff; color: #000; border: 1px solid #ddd; }
+.stats { display: flex; justify-content: center; gap: 60px; padding: 50px 5%; background: #000; color: #fff; flex-wrap: wrap; }
+.stat h3 { font-size: 36px; }
+.stat p { color: #aaa; }
+.tools { padding: 80px 5%; }
+.section-title { text-align: center; font-size: 42px; font-weight: 800; margin-bottom: 50px; }
+.tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; max-width: 1200px; margin: 0 auto; }
+.tool-card { border: 1px solid #eee; border-radius: 20px; padding: 30px; transition: 0.3s; background: #fff; }
+.tool-card:hover { transform: translateY(-5px); box-shadow: 0 20px 40px rgba(0,0,0,0.08); }
+.tool-card h3 { font-size: 22px; margin-bottom: 10px; }
+.tool-card p { color: #666; margin-bottom: 15px; }
+.tool-tag { background: #f3e8ff; color: #7c3aed; padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.pricing { padding: 80px 5%; background: #f9fafb; }
+.pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1000px; margin: 0 auto; }
+.price-card { background: #fff; border-radius: 20px; padding: 40px; border: 1px solid #eee; }
+.price-card.popular { border: 2px solid #7c3aed; transform: scale(1.05); }
+.price { font-size: 48px; font-weight: 800; margin: 20px 0; }
+.price-card ul { list-style: none; }
+.price-card ul li { padding: 8px 0; color: #555; }
+.price-card ul li::before { content: "✓ "; color: #7c3aed; font-weight: bold; }
+footer { background: #000; color: #fff; padding: 60px 5% 30px; text-align: center; }
+footer p { color: #888; margin-top: 20px; }
 </style>
 </head>
 <body>
-<div class="header">
-<div class="logo">🏪 CreateHub AI Soko</div>
-<button class="sell-btn" onclick="openSell()">+ Sell</button>
+
+<nav>
+<div class="logo">Createhub <span>AI</span></div>
+<div class="nav-links">
+<a href="#">Tools</a>
+<a href="#">Pricing</a>
+<a href="#">Showcase</a>
+<a href="#" class="nav-btn">Get Started</a>
 </div>
-<div id="productGrid" class="grid"></div>
-<div id="sellModal" class="modal">
-<div class="box">
-<h3>ONE Subscription - Facebook Style</h3>
-<p style="font-size:12px;color:#666">4 Photos + Title + Price + Category + Location + Phone</p>
-<input id="pTitle" placeholder="Title e.g. Fresh Maize 90kg">
-<input id="pPrice" type="number" placeholder="Price KES e.g. 3500">
-<select id="pCat"><option>Maize</option><option>Dairy Goat</option><option>Avocado</option><option>Chicks</option><option>Other</option></select>
-<input id="pLoc" placeholder="Location e.g. Kitale">
-<input id="pPhone" placeholder="Phone e.g. 0708...">
-<input id="pImages" type="file" accept="image/*" multiple>
-<div class="pay-box">
-<b>PAY KES 650 to List:</b><br>
-1. <a href="https://www.paypal.com/ncp/payment/8Z5QUPZRLHED2" target="_blank">Pay with PayPal (Click Here)</a><br>
-2. Pochi: 0708013932<br><br>
-<label><input type="checkbox" id="paidCheck"> I have paid KES 650</label><br>
-<input id="payCode" placeholder="Enter M-Pesa / PayPal Code (e.g. QGH... or PP...)">
+</nav>
+
+<section class="hero">
+<h1>Create Anything You Imagine With <span>AI Power</span></h1>
+<p>One platform for all your creative needs. Generate images, videos, logos, content, voiceovers and more in seconds with Createhub AI.</p>
+<div class="hero-buttons">
+<a href="#" class="btn-primary">Start Creating Free →</a>
+<a href="#" class="btn-secondary">Watch Demo</a>
 </div>
-<button class="btn btn-blue" onclick="submitProduct()">Submit for Approval</button>
-<button class="btn" style="background:#eee" onclick="closeSell()">Cancel</button>
+</section>
+
+<div class="stats">
+<div class="stat"><h3>2M+</h3><p>Active Creators</p></div>
+<div class="stat"><h3>50M+</h3><p>Creations Made</p></div>
+<div class="stat"><h3>100+</h3><p>AI Tools</p></div>
+<div class="stat"><h3>4.9★</h3><p>User Rating</p></div>
 </div>
+
+<section class="tools">
+<h2 class="section-title">Everything You Need To Create</h2>
+<div class="tools-grid">
+<div class="tool-card">
+<span class="tool-tag">POPULAR</span>
+<h3>🎨 AI Image Generator</h3>
+<p>Turn text into stunning 4K images, art, photos, anime in 3 seconds.</p>
 </div>
-<div id="adminPanel" class="admin-panel">
-<h2>Admin Panel - CreateHub</h2>
-<div id="adminLogin">
-<input id="adminPin" type="password" placeholder="Enter Admin PIN (0708013932)">
-<button class="btn btn-blue" onclick="loginAdmin()">Login</button>
-<button class="btn" onclick="closeAdmin()">Close</button>
+<div class="tool-card">
+<span class="tool-tag">NEW</span>
+<h3>🎬 AI Video Maker</h3>
+<p>Create viral videos, reels, ads from text prompt automatically.</p>
 </div>
-<div id="adminContent" style="display:none">
-<h3>Pending Payments - Confirm Before Listing</h3>
-<p style="font-size:12px">Check PayPal Activity or Pochi SMS, then Approve</p>
-<div id="pendingList"></div>
-<button class="btn" onclick="closeAdmin()">Close Admin</button>
+<div class="tool-card">
+<span class="tool-tag">TRENDING</span>
+<h3>✍️ AI Writer</h3>
+<p>Blogs, ads, product descriptions, emails that convert.</p>
 </div>
+<div class="tool-card">
+<h3>🎵 AI Music & Voice</h3>
+<p>Generate music, voiceovers, sound effects royalty-free.</p>
 </div>
-<script>
-let products = JSON.parse(localStorage.getItem('ch_products') || '[]');
-let pending = JSON.parse(localStorage.getItem('ch_pending') || '[]');
-const defaultProducts=[
-{title:'Fresh Maize - 90kg Bag',price:3500,loc:'Kitale',img:'https://images.unsplash.com/photo-1551754655-cd94d38d1d8d?w=400',status:'approved'},
-{title:'Dairy Goat',price:12000,loc:'Eldoret',img:'https://images.unsplash.com/photo-1524024973431-2ad916746881?w=400',status:'approved'}
-];
-function render(){ const grid=document.getElementById('productGrid'); const all=[...defaultProducts, ...products.filter(p=>p.status==='approved')]; grid.innerHTML=all.map(p=>`
-<div class="card">
-<img src="${p.img}">
-<div class="card-info">
-<div class="price">KES ${p.price.toLocaleString()}</div>
-<div class="title">${p.title}</div>
-<div class="loc">${p.loc} <span class="badge approved">Verified</span></div>
+<div class="tool-card">
+<h3>💎 Logo Maker</h3>
+<p>Professional logos, branding kits for your business.</p>
+</div>
+<div class="tool-card">
+<h3>📱 Social Content</h3>
+<p>Posts, captions, hashtags for Instagram, TikTok, YouTube.</p>
 </div>
 </div>
-`).join(''); }
-function openSell(){document.getElementById('sellModal').classList.add('active')}
-function closeSell(){document.getElementById('sellModal').classList.remove('active')}
-function submitProduct(){ if(!document.getElementById('paidCheck').checked){alert('Please confirm you paid KES 650');return} const title=document.getElementById('pTitle').value; const price=document.getElementById('pPrice').value; const loc=document.getElementById('pLoc').value; const phone=document.getElementById('pPhone').value; const code=document.getElementById('payCode').value; if(!title||!price){alert('Add Title & Price');return} const newProd={title,price:parseInt(price),loc:loc||'Kenya',phone,code,img:'https://images.unsplash.com/photo-1591285513904-84ac0079cba1?w=400',status:'pending',date:new Date().toLocaleString()}; pending.push(newProd); localStorage.setItem('ch_pending',JSON.stringify(pending)); alert('Submitted! Admin will confirm payment code: '+code); closeSell(); document.getElementById('pTitle').value='';document.getElementById('pPrice').value='';document.getElementById('payCode').value=''; }
-if(window.location.search.includes('admin')){document.getElementById('adminPanel').style.display='block'}
-function loginAdmin(){ if(document.getElementById('adminPin').value==='0708013932'){ document.getElementById('adminLogin').style.display='none'; document.getElementById('adminContent').style.display='block'; renderPending(); }else alert('Wrong PIN'); }
-function renderPending(){ const list=document.getElementById('pendingList'); if(pending.length===0){list.innerHTML='<p>No pending orders</p>';return} list.innerHTML=pending.map((p,i)=>`
-<div style="border:1px solid #ddd;padding:10px;margin:8px 0;border-radius:8px">
-<b>${p.title}</b> - KES ${p.price}<br> Location: ${p.loc} | Phone: ${p.phone}<br> Payment Code: <b>${p.code}</b><br> Date: ${p.date}<br>
-<span class="badge pending">Awaiting Payment Confirmation</span><br><br>
-<button onclick="approve(${i})" style="background:#28a745;color:white;border:none;padding:8px 12px;border-radius:6px;margin-right:5px">Approve & List</button>
-<button onclick="reject(${i})" style="background:#dc3545;color:white;border:none;padding:8px 12px;border-radius:6px">Reject</button>
+</section>
+
+<section class="pricing">
+<h2 class="section-title">Simple Pricing</h2>
+<div class="pricing-grid">
+<div class="price-card">
+<h3>Free</h3>
+<div class="price">$0</div>
+<ul>
+<li>10 credits per day</li>
+<li>All AI tools access</li>
+<li>Standard quality</li>
+<li>Community support</li>
+</ul>
 </div>
-`).join(''); }
-function approve(i){ const prod=pending[i]; prod.status='approved'; products.push(prod); pending.splice(i,1); localStorage.setItem('ch_products',JSON.stringify(products)); localStorage.setItem('ch_pending',JSON.stringify(pending)); alert('Approved! Now live');render();renderPending(); }
-function reject(i){pending.splice(i,1);localStorage.setItem('ch_pending',JSON.stringify(pending));renderPending();}
-function closeAdmin(){document.getElementById('adminPanel').style.display='none';history.replaceState({},'',window.location.pathname)}
-render();
-</script>
+<div class="price-card popular">
+<h3>Pro ⭐ Most Popular</h3>
+<div class="price">$19</div>
+<ul>
+<li>1000 credits per month</li>
+<li>4K Ultra HD quality</li>
+<li>Commercial license</li>
+<li>Priority support</li>
+<li>No watermark</li>
+</ul>
+</div>
+<div class="price-card">
+<h3>Business</h3>
+<div class="price">$49</div>
+<ul>
+<li>Unlimited credits</li>
+<li>API access</li>
+<li>Team collaboration</li>
+<li>Custom model training</li>
+</ul>
+</div>
+</div>
+</section>
+
+<footer>
+<div class="logo">Createhub <span>AI</span></div>
+<p>Build your creative future with AI. Join 2 million creators today.</p>
+<p>© 2026 Createhub AI | motiveter.github.io/Createhub-ai | Verified with Google</p>
+<p style="margin-top:10px;">Google Verification: 240c97758f140190</p>
+</footer>
+
 </body>
 </html>
