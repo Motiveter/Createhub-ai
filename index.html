@@ -1,0 +1,150 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CreateHub AI Soko</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui;background:#f0f2f5}
+.header{background:white;padding:10px 15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:100;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.logo{font-weight:800;color:#0064d1;font-size:20px}.sell-btn{background:#0064d1;color:white;border:none;padding:8px 16px;border-radius:20px;font-weight:700}
+.grid{padding:10px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.card{background:white;border-radius:8px;overflow:hidden;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.card img{width:100%;height:140px;object-fit:cover}
+.card-info{padding:8px}.price{font-weight:800}.title{font-size:13px;color:#333}.loc{font-size:11px;color:#888;margin-top:4px}
+.badge{font-size:10px;padding:2px 6px;border-radius:4px}.pending{background:#fff3cd;color:#856404}.approved{background:#d4edda;color:#155724}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;z-index:200;overflow:auto}
+.modal.active{display:flex;align-items:center;justify-content:center;padding:20px}
+.box{background:white;width:100%;max-width:400px;border-radius:10px;padding:20px}
+input,select,textarea{width:100%;padding:10px;margin:6px 0;border:1px solid #ddd;border-radius:6px}
+.btn{width:100%;padding:12px;border:none;border-radius:6px;font-weight:700;margin-top:8px}
+.btn-blue{background:#0064d1;color:white}.btn-green{background:#28a745;color:white}
+.pay-box{border:1px dashed #0064d1;padding:10px;border-radius:8px;margin:10px 0;background:#f8f9ff}
+.admin-panel{display:none;position:fixed;inset:0;background:white;z-index:300;overflow:auto;padding:15px}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="logo">🏪 CreateHub AI Soko</div>
+<button class="sell-btn" onclick="openSell()">+ Sell</button>
+</div>
+
+<div id="productGrid" class="grid"></div>
+
+<div id="sellModal" class="modal">
+<div class="box">
+<h3>ONE Subscription - Facebook Style</h3>
+<p style="font-size:12px;color:#666">4 Photos + Title + Price + Category + Location + Phone</p>
+
+<input id="pTitle" placeholder="Title e.g. Fresh Maize 90kg">
+<input id="pPrice" type="number" placeholder="Price KES e.g. 3500">
+<select id="pCat"><option>Maize</option><option>Dairy Goat</option><option>Avocado</option><option>Chicks</option><option>Other</option></select>
+<input id="pLoc" placeholder="Location e.g. Kitale">
+<input id="pPhone" placeholder="Phone e.g. 0708...">
+<input id="pImages" type="file" accept="image/*" multiple>
+
+<div class="pay-box">
+<b>PAY KES 650 to List:</b><br>
+1. <a href="https://www.paypal.com/ncp/payment/8Z5QUPZRLHED2" target="_blank">Pay with PayPal (Click Here)</a><br>
+2. Pochi: 0708013932<br><br>
+<label><input type="checkbox" id="paidCheck"> I have paid KES 650</label><br>
+<input id="payCode" placeholder="Enter M-Pesa / PayPal Code (e.g. QGH... or PP...)">
+</div>
+
+<button class="btn btn-blue" onclick="submitProduct()">Submit for Approval</button>
+<button class="btn" style="background:#eee" onclick="closeSell()">Cancel</button>
+</div>
+</div>
+
+<div id="adminPanel" class="admin-panel">
+<h2>Admin Panel - CreateHub</h2>
+<div id="adminLogin">
+<input id="adminPin" type="password" placeholder="Enter Admin PIN (0708013932)">
+<button class="btn btn-blue" onclick="loginAdmin()">Login</button>
+<button class="btn" onclick="closeAdmin()">Close</button>
+</div>
+<div id="adminContent" style="display:none">
+<h3>Pending Payments - Confirm Before Listing</h3>
+<p style="font-size:12px">Check PayPal Activity or Pochi SMS, then Approve</p>
+<div id="pendingList"></div>
+<button class="btn" onclick="closeAdmin()">Close Admin</button>
+</div>
+</div>
+
+<script>
+let products = JSON.parse(localStorage.getItem('ch_products') || '[]');
+let pending = JSON.parse(localStorage.getItem('ch_pending') || '[]');
+const defaultProducts=[
+{title:'Fresh Maize - 90kg Bag',price:3500,loc:'Kitale',img:'https://images.unsplash.com/photo-1551754655-cd94d38d1d8d?w=400',status:'approved'},
+{title:'Dairy Goat',price:12000,loc:'Eldoret',img:'https://images.unsplash.com/photo-1524024973431-2ad916746881?w=400',status:'approved'}
+];
+function render(){
+const grid=document.getElementById('productGrid');
+const all=[...defaultProducts, ...products.filter(p=>p.status==='approved')];
+grid.innerHTML=all.map(p=>`
+<div class="card">
+<img src="${p.img}">
+<div class="card-info">
+<div class="price">KES ${p.price.toLocaleString()}</div>
+<div class="title">${p.title}</div>
+<div class="loc">${p.loc} <span class="badge approved">Verified</span></div>
+</div>
+</div>
+`).join('');
+}
+function openSell(){document.getElementById('sellModal').classList.add('active')}
+function closeSell(){document.getElementById('sellModal').classList.remove('active')}
+function submitProduct(){
+if(!document.getElementById('paidCheck').checked){alert('Please confirm you paid KES 650');return}
+const title=document.getElementById('pTitle').value;
+const price=document.getElementById('pPrice').value;
+const loc=document.getElementById('pLoc').value;
+const phone=document.getElementById('pPhone').value;
+const code=document.getElementById('payCode').value;
+if(!title||!price){alert('Add Title & Price');return}
+const newProd={title,price:parseInt(price),loc:loc||'Kenya',phone,code,img:'https://images.unsplash.com/photo-1591285513904-84ac0079cba1?w=400',status:'pending',date:new Date().toLocaleString()};
+pending.push(newProd);
+localStorage.setItem('ch_pending',JSON.stringify(pending));
+alert('Submitted! Admin will confirm payment code: '+code);
+closeSell();
+document.getElementById('pTitle').value='';document.getElementById('pPrice').value='';document.getElementById('payCode').value='';
+}
+if(window.location.search.includes('admin')){document.getElementById('adminPanel').style.display='block'}
+function loginAdmin(){
+if(document.getElementById('adminPin').value==='0708013932'){
+document.getElementById('adminLogin').style.display='none';
+document.getElementById('adminContent').style.display='block';
+renderPending();
+}else alert('Wrong PIN');
+}
+function renderPending(){
+const list=document.getElementById('pendingList');
+if(pending.length===0){list.innerHTML='<p>No pending orders</p>';return}
+list.innerHTML=pending.map((p,i)=>`
+<div style="border:1px solid #ddd;padding:10px;margin:8px 0;border-radius:8px">
+<b>${p.title}</b> - KES ${p.price}<br>
+Location: ${p.loc} | Phone: ${p.phone}<br>
+Payment Code: <b>${p.code}</b><br>
+Date: ${p.date}<br>
+<span class="badge pending">Awaiting Payment Confirmation</span><br><br>
+<button onclick="approve(${i})" style="background:#28a745;color:white;border:none;padding:8px 12px;border-radius:6px;margin-right:5px">Approve & List</button>
+<button onclick="reject(${i})" style="background:#dc3545;color:white;border:none;padding:8px 12px;border-radius:6px">Reject</button>
+</div>
+`).join('');
+}
+function approve(i){
+const prod=pending[i];
+prod.status='approved';
+products.push(prod);
+pending.splice(i,1);
+localStorage.setItem('ch_products',JSON.stringify(products));
+localStorage.setItem('ch_pending',JSON.stringify(pending));
+alert('Approved! Now live');render();renderPending();
+}
+function reject(i){pending.splice(i,1);localStorage.setItem('ch_pending',JSON.stringify(pending));renderPending();}
+function closeAdmin(){document.getElementById('adminPanel').style.display='none';history.replaceState({},'',window.location.pathname)}
+render();
+</script>
+</body>
+</htm/>
